@@ -179,6 +179,17 @@ app.post('/api/users/:userId/reservations', async(req, res, next)=> {
   }
 });
 
+app.delete('/api/users/:id', async(req, res, next)=> {
+  try {
+    const user = await User.findByPk(req.params.id);
+    await user.destroy();
+    res.sendStatus(204);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
 app.delete('/api/reservations/:id', async(req, res, next)=> {
   try {
     const reservation = await Reservation.findByPk(req.params.id);
